@@ -23,7 +23,7 @@ public class FileFrag extends ListFragment {
 
 	//buttons found in the xml layout file
 	private Button photoButton;
-	private Button addNewExpense, addNewMileage, deleteFile;
+	private Button addNewExpense, addNewPDF, deleteFile;
 	
 	private Cursor cursor;
 	
@@ -49,7 +49,7 @@ public class FileFrag extends ListFragment {
 		View v = inflater.inflate(R.layout.file_frag, parent,false); 
 		
 		//Strings for setting the text of the Delete button
-		deleteFileStr = "Delete Photo";
+		deleteFileStr = "Delete";
         doneFileStr = "Done";
 		
         //Gets our specific instance of GreenDao stuff
@@ -67,14 +67,14 @@ public class FileFrag extends ListFragment {
 		//Finds all of the specific buttons on our layout
 		photoButton = (Button) getActivity().findViewById(R.id.buttonNewHours);
 		addNewExpense = (Button) getActivity().findViewById(R.id.buttonNewExpense);
-		addNewMileage = (Button) getActivity().findViewById(R.id.buttonNewMileage);
+		addNewPDF = (Button) getActivity().findViewById(R.id.buttonNewMileage);
 		deleteFile = (Button) getActivity().findViewById(R.id.buttonDelete);
 		//we don't need these buttons on this fragment so set to invisible
 		addNewExpense.setVisibility(View.INVISIBLE);
-		addNewMileage.setVisibility(View.INVISIBLE);
+		addNewPDF.setVisibility(View.INVISIBLE);
 		
-		photoButton.setText("New Photo");
-		deleteFile.setText("Delete Photo");
+		photoButton.setText("New");
+		deleteFile.setText(deleteFileStr);
 		
 		
 		//when you click this button it launches an intent to photoIntentActivity
@@ -85,9 +85,20 @@ public class FileFrag extends ListFragment {
 			@Override
 			public void onClick(View v) 
 			{
-				Intent takePhoto = new Intent(getActivity(), PhotoIntentActivity.class);
+				if (photoButton.getText() == "New")
+				{
+					photoButton.setText("New Photo");
+					addNewPDF.setText("New PDF");
+					addNewPDF.setVisibility(View.VISIBLE);
+					
+					deleteFile.setText("Cancel");
+				}
+				else
+				{
+					Intent takePhoto = new Intent(getActivity(), PhotoIntentActivity.class);
 				
-				startActivityForResult(takePhoto, 1);
+					startActivityForResult(takePhoto, 1);
+				}
 			}
 			
 		});
@@ -107,6 +118,10 @@ public class FileFrag extends ListFragment {
 					deleteFile.setText(doneFileStr);
 					
 					photoButton.setVisibility(View.INVISIBLE);
+				}
+				else if (deleteFile.getText() == "Cancel")
+				{
+					resetButtons();
 				}
 				else
 				{
@@ -150,13 +165,13 @@ public class FileFrag extends ListFragment {
 	{
 		super.onResume();
 		
+		addNewPDF.setVisibility(View.INVISIBLE);
 		addNewExpense.setVisibility(View.INVISIBLE);
-		addNewMileage.setVisibility(View.INVISIBLE);
 		photoButton.setVisibility(View.VISIBLE);
 		deleteFile.setVisibility(View.VISIBLE);
 		
-		photoButton.setText("New Photo");
-		deleteFile.setText("Delete Photo");
+		photoButton.setText("New");
+		deleteFile.setText(deleteFileStr);
 	}
 	
 	//This function gets the picture that is returned but the take picture intent
@@ -207,5 +222,12 @@ public class FileFrag extends ListFragment {
 		}
 		
 		cursor.requery();
+	}
+	
+	public void resetButtons()
+	{
+		photoButton.setText("New");
+		addNewPDF.setVisibility(View.INVISIBLE);
+		deleteFile.setText(deleteFileStr);
 	}
 }
