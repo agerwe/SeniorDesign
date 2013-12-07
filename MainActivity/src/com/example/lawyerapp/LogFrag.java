@@ -72,14 +72,7 @@ public class LogFrag extends ListFragment {
 		addNewMileage = (Button) getActivity().findViewById(R.id.buttonNewMileage);
 		deleteLog = (Button) getActivity().findViewById(R.id.buttonDelete);
 		
-		addNewHours.setVisibility(View.VISIBLE);
-		deleteLog.setVisibility(View.VISIBLE);
-		deleteLog.setText(deleteLogStr);
-		addNewHours.setText("New Hours");
-		addNewExpense.setVisibility(View.VISIBLE);
-		addNewMileage.setVisibility(View.VISIBLE);
-		addNewExpense.setText("New Expense");
-		addNewMileage.setText("New Mileage");
+		resetButtons();
 		
 		final LayoutInflater lInflater = inflater;
 
@@ -96,7 +89,20 @@ public class LogFrag extends ListFragment {
 			@Override
 			  public void onClick(View view) 
 			{
-				onClickMethod(0, lInflater);
+				if (addNewHours.getText() == "New")
+				{
+					deleteLog.setVisibility(View.VISIBLE);
+					deleteLog.setText("Cancel");
+					addNewHours.setText("New Hours");
+					addNewExpense.setVisibility(View.VISIBLE);
+					addNewMileage.setVisibility(View.VISIBLE);
+					addNewExpense.setText("New Expense");
+					addNewMileage.setText("New Mileage");
+				}
+				else
+				{
+					onClickMethod(0, lInflater);
+				}
 			}		 
 		});
         
@@ -136,6 +142,10 @@ public class LogFrag extends ListFragment {
 					addNewHours.setVisibility(View.INVISIBLE);
 					addNewExpense.setVisibility(View.INVISIBLE);
 					addNewMileage.setVisibility(View.INVISIBLE);
+				}
+				else if (deleteLog.getText() == "Cancel")
+				{
+					resetButtons();
 				}
 				else
 				{
@@ -532,4 +542,23 @@ public class LogFrag extends ListFragment {
 		  
 				ad.show();
 	  }
+	
+	public void resetButtons()
+	{
+		addNewHours.setVisibility(View.VISIBLE);
+		deleteLog.setVisibility(View.VISIBLE);
+		deleteLog.setText(deleteLogStr);
+		addNewHours.setText("New");
+		addNewExpense.setVisibility(View.INVISIBLE);
+		addNewMileage.setVisibility(View.INVISIBLE);
+		addNewExpense.setText("New Expense");
+		addNewMileage.setText("New Mileage");
 	}
+	
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		resetButtons();
+	}
+}
