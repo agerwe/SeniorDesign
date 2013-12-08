@@ -150,9 +150,10 @@ public class ContactFrag extends ListFragment {
 			      pCur.close();
 			    }
 			  }
-			
-			spinner.setVisibility(View.GONE);
 		}
+		
+		spinner.setVisibility(View.GONE);
+		
 		cur.close();
 	}
 	
@@ -245,7 +246,7 @@ public class ContactFrag extends ListFragment {
 	    if (resultCode == Activity.RESULT_OK) {  
 	    	Bundle extras = data.getExtras();  
 	    	
-	    	   if (resultCode == Activity.RESULT_OK) {
+	    	if (resultCode == Activity.RESULT_OK) {
 
 	    	     Uri contactData = data.getData();
 	    	     Cursor c =  getActivity().managedQuery(contactData, null, null, null, null);
@@ -255,10 +256,10 @@ public class ContactFrag extends ListFragment {
 	    	         String id =c.getString(c.getColumnIndexOrThrow(ContactsContract.Contacts._ID));
 	    	         
 	    	         Long IDnum=Long.parseLong(id);
-	    	         CaseContacts CC=new CaseContacts(IDnum, parentID, IDnum);
+	    	         CaseContacts CC=new CaseContacts(null, parentID, IDnum);
 	    	         caseContactsDao.insertOrReplace(CC);
 	    	     }
-	    	     }
+	    	 }
 	    }  
 	} 
 	

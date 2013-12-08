@@ -20,7 +20,7 @@ public class DaoInstance extends Application
     
     private DaoInstance(Context c) {
     	
-    	DevOpenHelper helper = new DaoMaster.DevOpenHelper(c, "lawyers10-db", null);
+    	DevOpenHelper helper = new DaoMaster.DevOpenHelper(c, "lawyers11-db", null);
         db = helper.getWritableDatabase();
         daoMaster = new DaoMaster(db);
         daoSession = daoMaster.newSession();

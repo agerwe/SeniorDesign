@@ -16,7 +16,7 @@ public class MyPdfViewActivity extends Activity {
 	    WebView mWebView=new WebView(MyPdfViewActivity.this);
 	    mWebView.getSettings().setJavaScriptEnabled(true);
 	    mWebView.getSettings().setPluginState(PluginState.ON);
-	    mWebView.loadUrl("https://docs.google.com/gview?embedded=true&url="+ "/storage/sdcard/Ashland Application.pdf");
+	    mWebView.loadUrl("https://docs.google.com/gview?embedded=true&url="+ "sweb.uky.edu/~mage223/sample.pdf");
 	    setContentView(mWebView);
 	  }
 	}
