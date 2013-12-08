@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +25,8 @@ public class PhotoView extends Activity{
         
         // Create a file at the specified path
         File imgFile = new File(path);
+        
+        //Log.i("CS499", path);
         
         if(imgFile.exists()){
 

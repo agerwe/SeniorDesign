@@ -228,7 +228,7 @@ public class PhotoIntentActivity extends Activity {
 		saveButton.setBackgroundColor(getResources().getColor(R.color.colorScheme2));
 		
 		mImageView = (ImageView) findViewById(R.id.imageView1);
-		mImageBitmap = null;
+		//mImageBitmap = null;
 		
 		bundleName = (EditText) findViewById(R.id.photoName);
 
@@ -256,6 +256,9 @@ public class PhotoIntentActivity extends Activity {
 						Intent returnIntent = new Intent();
 						 returnIntent.putExtra("name", bundleName.getText().toString());
 						 returnIntent.putExtra("path", bundlePhotoPath);
+						 
+						 Log.i("CS499", bundlePhotoPath);
+						 
 						 setResult(RESULT_OK,returnIntent);     
 						 finish();
 					}

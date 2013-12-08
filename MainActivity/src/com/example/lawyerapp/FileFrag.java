@@ -103,6 +103,36 @@ public class FileFrag extends ListFragment {
 			
 		});
 		
+		addNewPDF.setOnClickListener(new View.OnClickListener() 
+		{
+			
+			@Override
+			public void onClick(View v) 
+			{
+				/* If viewing online
+				 * 
+				 * 
+				 * Intent showPDF = new Intent(getActivity(), MyPdfViewActivity.class);
+			
+					startActivityForResult(showPDF, 2);
+				 */
+				
+				/*
+				 * If viewing local file
+				 * 
+				 * 
+				 * file = new File ("/mnt/sdcard/test.pdf");
+				 * 
+				 * Uri path = Uri.fromFile(file);
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					intent.setDataAndType(path, "application/pdf");
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(intent);
+				 */
+				
+			}
+			
+		});
 		
 		//Swaps out the string on the delete button, 
 		//It changes the delete button into a done button to click to end the deleting process
@@ -142,6 +172,8 @@ public class FileFrag extends ListFragment {
 		
 		String textColumn = FilesDao.Properties.Name.columnName;
 		
+		String typeColumn = FilesDao.Properties.Type.columnName;
+		
 		//String dateColumn = FilesDao.Properties.Date.columnName;
         String orderBy = textColumn + " COLLATE LOCALIZED DESC";
 		
@@ -149,8 +181,8 @@ public class FileFrag extends ListFragment {
         		"(SELECT PARENT_ID FROM FILES WHERE PARENT_ID = " + parentID.toString() + ")"
         		, null, null, null, orderBy);
         
-        String[] from = {textColumn};
-        int[] to = { R.id.textView1};
+        String[] from = {textColumn, typeColumn};
+        int[] to = { R.id.textView1, R.id.textView2};
 
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(getActivity(), R.layout.list_item2, cursor, from,
                 to);
@@ -187,7 +219,7 @@ public class FileFrag extends ListFragment {
 			String path = "";
 			path = data.getExtras().getString("path");
 			
-			Files file = new Files(null, name, parentID, "photo", path);
+			Files file = new Files(null, name, parentID, "Photo", path);
 	        filesDao.insertOrReplace(file);
 			
 	        cursor.requery();
